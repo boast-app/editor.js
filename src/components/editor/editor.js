@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { useState } from 'react'
+import md from "../../plugins/parser"
 import useCodeMirror from './use-codemirror'
 import Uploader from '../Uploader/Uploader'
 import Switch from "../Switch/Switch"
+import "../../css/markdown.css"
 import { css } from "@emotion/react"
 
 const editorWrapper = css`
@@ -31,11 +33,14 @@ const Editor = (props) => {
   const [line, setLine] = useState()
   const { onChange, initialDoc } = props
   const [isToggle, setIsToggle] = useState(false)
+  const [html, setHtml] = useState(md.render(initialDoc))
   
   const handleChange = (doc, line) => {
+    setHtml(md.render(doc))
     onChange(doc)
     setLine(line)
   }
+
   const [refContainer, editorView] = useCodeMirror({
     initialDoc: initialDoc,
     onChange: handleChange
@@ -50,7 +55,14 @@ const Editor = (props) => {
   return(
     <div css={editorWrapper}> 
 
-      <div css={codemirrorStyle} style={{ display: isToggle ? "block" : "none" }} />
+      <div
+        css={codemirrorStyle} 
+        style={{ display: isToggle ? "block" : "none" }}
+        className="markdown-body"
+        dangerouslySetInnerHTML={{
+          __html: html
+        }}
+      />
       <div css={codemirrorStyle} style={{ display: isToggle ? "none" : "block" }} ref={refContainer} />
 
       <div>
