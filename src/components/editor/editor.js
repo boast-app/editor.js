@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import useCodeMirror from './use-codemirror'
-
+import Uploader from '../Uploader/Uploader'
 
 const Editor = (props) => {
   const [line, setLine] = useState()
@@ -14,16 +14,16 @@ const Editor = (props) => {
     onChange: handleChange
   })
 
-  const handleOnClick = () => {
+  const handleOnClick = (url) => {
     editorView.dispatch({
-      changes: {from: line, insert: "![](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)"}
+      changes: {from: line, insert: `![](${url})`}
     })
   }
 
   return(
     <div> 
       <div className='editor-wrapper' ref={refContainer}></div>
-      <button onClick={handleOnClick}>Add</button>
+      <Uploader onClick={(url) => handleOnClick(url)} />
     </div>
   )
 }

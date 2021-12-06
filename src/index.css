@@ -1,0 +1,7 @@
+body {
+  margin: 0;
+}
+
+.cm-editor {
+  outline: none !important;
+}
