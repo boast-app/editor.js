@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import useCodeMirror from './use-codemirror'
 import Uploader from '../Uploader/Uploader'
+import Switch from "../Switch/Switch"
 import { css } from "@emotion/react"
 
 const editorWrapper = css`
@@ -22,13 +23,14 @@ const codemirrorStyle = css`
   border-radius: 8px;
   padding: 10px;
   background-color: #FFFFFF;
-  margin-right: 15px;
+  margin-right: 30px;
   width: 100%;
 `
 
 const Editor = (props) => {
   const [line, setLine] = useState()
   const { onChange, initialDoc } = props
+  const [isToggle, setIsToggle] = useState(false)
   
   const handleChange = (doc, line) => {
     onChange(doc)
@@ -47,8 +49,14 @@ const Editor = (props) => {
 
   return(
     <div css={editorWrapper}> 
-      <div className='editor-wrapper' css={codemirrorStyle} ref={refContainer}></div>
-      <Uploader onClick={(url) => handleOnClick(url)} />
+
+      <div css={codemirrorStyle} style={{ display: isToggle ? "block" : "none" }} />
+      <div css={codemirrorStyle} style={{ display: isToggle ? "none" : "block" }} ref={refContainer} />
+
+      <div>
+        <Switch onToggle={() => setIsToggle(!isToggle)} isToggle={isToggle} />
+        <Uploader onClick={(url) => handleOnClick(url)} />
+      </div>
     </div>
   )
 }

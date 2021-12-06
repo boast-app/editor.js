@@ -11,6 +11,7 @@ const labelStyle = css`
   display: inline-block;
   background-color: #FFF;
   border: none;
+  margin-top: 14px;
   text-align: center;
   box-shadow: 0 18px 18px -10px #0009652b;
   transition: all 0.5s ease;
