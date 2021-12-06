@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+/** @jsxImportSource @emotion/react */
+
+import { useState } from 'react'
 import Editor from './components/editor/editor'
+import { css } from "@emotion/react"
 
 const App = () => {
   const [doc, setDoc] = useState('# Hello, World!\n')
-  const [line, setLine] = useState()
 
-  const handleDocChange = (doc, line) => {
+  const handleDocChange = (doc) => {
     setDoc(doc)
-    setLine(line)
-    console.log(line)
   }
 
-  return  <Editor onChange={handleDocChange} initialDoc={doc} />
+  return(
+    <Editor onChange={handleDocChange} initialDoc={doc} />
+  )
 }
 
 export default App
